@@ -1,4 +1,4 @@
-# Move Catalog
+# Movie Catalog
 
 ## Considerations
 a. This is a movie catalog created using MEAN stack that allows the user to create, edit, list, and see details
