@@ -8,4 +8,9 @@ router.get('/', (req, res) => {
     res.send('api works 100%');
 });
 
+router.get('/movies', async (req, res) => {
+    const movies = await Movie.find({});
+    res.send(movies);
+});
+
 module.exports = router;
