@@ -18,17 +18,17 @@ app.use('/', api);
 
 
 /**
- _ Get port from environment and store in Express.
- _**/
+ * Get port from environment and store in Express.
+ */
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
 /**
- _ Create HTTP server.
- _*/
+ *Create HTTP server.
+ */
 const server = http.createServer(app);
 
-/*_
- _ Listen on provided port, on all network interfaces.
- _*/
+/**
+ * Listen on provided port, on all network interfaces.
+ */
 server.listen(port, () => console.log(`API running on localhost:${port}`));

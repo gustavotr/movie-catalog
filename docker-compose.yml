@@ -15,7 +15,7 @@ services:
     links:
       - database
     volumes:
-      - ./express-server:/usr/src/app   
+      - ./express-server:/usr/src/app
 
   database:
     image: mongo
