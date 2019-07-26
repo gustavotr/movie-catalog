@@ -1,5 +1,5 @@
 const express = require('express');
-const { Movie, validade } = require('../model/Movie');
+const { Movie, validate, parse } = require('../model/Movie');
 
 const router = express.Router();
 
@@ -11,6 +11,23 @@ router.get('/', (req, res) => {
 router.get('/movies', async (req, res) => {
     const movies = await Movie.find({});
     res.send(movies);
+});
+
+
+router.post('/movies', async(req, res) => {
+    try{
+        const { error } = validate(req.body);    
+
+        if(error)
+            return (res.status(400).send(error.details[0].message));
+        
+        const m = parse(req.body);
+        const movie = new Movie(m);
+
+        res.status(201).json(await movie.save());
+    }catch(error){
+        res.status(500).send(error.message);
+    }
 });
 
 module.exports = router;

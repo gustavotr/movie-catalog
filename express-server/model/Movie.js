@@ -33,20 +33,15 @@ const Movie = new mongoose.model('Movie', new mongoose.Schema({
 const validate = (movie) => {
 	const schema = {
         title: Joi.string().max(100).required(),
-        genre: Join.array().items(Joi.string()),
-        releaseDate: Joi.date().iso(),
-        mainActors: Joi.array().items(Joi.string()),
+        genre: Joi.string(),
+        releaseDate: Joi.string(),
+        mainActors: Joi.string(),
         plot: Joi.string(),
-        trailer: Joi.string().uri({
-            scheme: [
-              'http',
-              'https'
-            ]
-          }),
-        poster: Joi.string().uri(),
-	};
+        trailer: Joi.string(),
+        poster: Joi.string(),
+    };
 
-	return (Joi.validate(movie, schema));
+	return Joi.validate(movie, schema);
 };
  
 const populate = async () =>{ 
@@ -60,9 +55,22 @@ const populate = async () =>{
         }
     }
 }
+const parse = (stringObj) => {
+    let movie = {
+        title: stringObj.title,
+        genre: stringObj.genre.split(",").map(e => e.trim()),
+        releaseDate: stringObj.releaseDate,
+        mainActors: stringObj.mainActors.split(",").map(e => e.trim()),
+        plot: stringObj.plot,
+        trailer: stringObj.trailer,
+        poster: stringObj.poster
+    }
+    return movie;
+}
 
 module.exports = {
 	Movie,
     validate,
-    populate
+    populate,
+    parse
 };
