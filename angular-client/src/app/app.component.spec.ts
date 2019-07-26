@@ -30,7 +30,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);    
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('#add-movie-action').textContent).toContain('Add Movie');
+    expect(compiled.querySelector('#add-movie-button').textContent).toContain('Add Movie');
   });
 
   it(`should have and a list of movies`, () =>{
@@ -39,5 +39,10 @@ describe('AppComponent', () => {
     expect(app.movieList).toBeDefined();
   });
 
+  it(`should have at least 3 movies to begin with`, () =>{
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.movieList.lenght).toBeGreaterThan(3);
+  });
 
 });
