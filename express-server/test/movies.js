@@ -128,7 +128,38 @@ describe('Movies', () => {
 					done();
 				});
 		});
-	});
+    });    
+    
+    describe('/PUT /api/movies/', () => {
+        it('It should update the value of a movie', (done)=>{
+            let movie = {
+                "title": "Matrix",
+                "genre": "Action, Drama, Fantasy, Thriller",
+                "releaseDate": "01 Mar 1993",
+                "mainActors": "Nick Mancuso, Phillip Jarrett, Carrie-Anne Moss, John Vernon",
+                "plot": "Steven Matrix is one of the underworld's foremost hitmen until his luck runs out, and someone puts a contract out on him. Shot in the forehead by a .22 pistol, Matrix \"dies\" and finds ...",
+                "trailer": "https://www.youtube.com/watch?v=2KnZac176Hs",
+                "poster": "https://m.media-amazon.com/images/M/MV5BYzUzOTA5ZTMtMTdlZS00MmQ5LWFmNjEtMjE5MTczN2RjNjE3XkEyXkFqcGdeQXVyNTc2ODIyMzY@._V1_SX300.jpg"
+            };
+
+			chai.request(server)
+				.post('/api/movies/')
+				.send(movie)
+				.end((error, response) => {                    
+                    response.should.have.status(201);
+                    const movie = response.body
+                    movie.genre.push('Generic');                    
+                    chai.request(server)
+                        .put('/api/movies')
+                        .send(movie)
+                        .end( (error, response) => {
+                            response.should.have.status(200);
+                            response.body.genre.should.include('Generic');
+                            done();
+                        });
+                });
+        });
+    });
 
     after((done) => {
 		Movie.deleteMany({}, (error) => {

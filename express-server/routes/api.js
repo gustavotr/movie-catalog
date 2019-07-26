@@ -30,4 +30,19 @@ router.post('/movies', async(req, res) => {
     }
 });
 
+router.put('/movies', async (req, res) =>{
+    const id = req.body._id;
+    delete(req.body._id);
+    const movie = req.body;    
+    Movie.findByIdAndUpdate(
+        id,
+        movie,
+        {new:true, useFindAndModify: false},
+        (err, response) => {
+            if(err) return res.status(500).send(err);
+            return res.send(response);
+        }
+    )
+});
+
 module.exports = router;
