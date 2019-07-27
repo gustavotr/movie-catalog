@@ -4,9 +4,10 @@ const { Movie, validate, parse } = require('../model/Movie');
 const router = express.Router();
 const REQUEST_ITEMS_LIMIT = 50;
 
-/* _ GET api listing._ */
-router.get('/', (req, res) => {
-  res.send('api works 100%');
+router.all('/movies', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  next();
 });
 
 router.get('/movies', async (req, res) => {
