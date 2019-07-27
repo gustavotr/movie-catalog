@@ -2,6 +2,7 @@ const express = require('express');
 const { Movie, validate, parse } = require('../model/Movie');
 
 const router = express.Router();
+const REQUEST_ITEMS_LIMIT = 50;
 
 /* _ GET api listing._ */
 router.get('/', (req, res) => {
@@ -9,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/movies', async (req, res) => {
-  const movies = await Movie.find({});
+  const movies = await Movie.find({}).limit(REQUEST_ITEMS_LIMIT);
   res.send(movies);
 });
 

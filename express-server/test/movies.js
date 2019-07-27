@@ -58,29 +58,6 @@ describe('Movies', () => {
 
     });
 
-    describe('/GET /api/movies', ()=>{
-        it('It should GET all the movies from the database with the required props', done=>{
-            chai.request(server)
-                .get('/api/movies')
-                .end((error, response) => {
-                    response.should.have.status(200);
-                    response.body.should.be.a('array');                    
-                    response.body.length.should.be.gt(0);
-                    for(const movie of response.body){
-                        movie.should.be.a('object');
-                        movie.should.have.property('_id');
-                        movie.should.have.property('title');
-                        movie.should.have.property('genre');
-                        movie.should.have.property('releaseDate');
-                        movie.should.have.property('mainActors');
-                        movie.should.have.property('plot');
-                        movie.should.have.property('trailer');                        
-                    }
-					done();
-                });
-        });
-    });
-
     describe('/POST /api/movies/', () => {
 		it('It should POST a movie and return a 201 http response on success', (done) => {
 			let movie = {
@@ -128,7 +105,58 @@ describe('Movies', () => {
 					done();
 				});
 		});
-    });    
+    }); 
+
+    describe('/GET /api/movies', ()=>{
+
+        it('It should GET all the movies from the database with the required props', done=>{
+            chai.request(server)
+                .get('/api/movies')
+                .end((error, response) => {
+                    response.should.have.status(200);
+                    response.body.should.be.a('array');                    
+                    response.body.length.should.be.gt(0);
+                    for(const movie of response.body){
+                        movie.should.be.a('object');
+                        movie.should.have.property('_id');
+                        movie.should.have.property('title');
+                        movie.should.have.property('genre');
+                        movie.should.have.property('releaseDate');
+                        movie.should.have.property('mainActors');
+                        movie.should.have.property('plot');
+                        movie.should.have.property('trailer');                        
+                    }
+					done();
+                });
+        });
+
+        it('It should limit the number of movies returned in each request to 50', async() => {
+            
+            let movie = {
+                "title": "Matrix",
+                "genre": "Action, Drama, Fantasy, Thriller",
+                "releaseDate": "01 Mar 1993",
+                "mainActors": "Nick Mancuso, Phillip Jarrett, Carrie-Anne Moss, John Vernon",
+                "plot": "Steven Matrix is one of the underworld's foremost hitmen until his luck runs out, and someone puts a contract out on him. Shot in the forehead by a .22 pistol, Matrix \"dies\" and finds ...",
+                "trailer": "https://www.youtube.com/watch?v=2KnZac176Hs",
+                "poster": "https://m.media-amazon.com/images/M/MV5BYzUzOTA5ZTMtMTdlZS00MmQ5LWFmNjEtMjE5MTczN2RjNjE3XkEyXkFqcGdeQXVyNTc2ODIyMzY@._V1_SX300.jpg"
+            };
+
+            for(let i = 0; i < 60; i++){
+                await chai.request(server)
+                    .post('/api/movies/')
+                    .send(movie); 
+            }
+
+            chai.request(server)
+                .get('/api/movies')
+                .end((error, response) => {
+                    response.should.have.status(200);
+                    response.body.should.be.a('array');                    
+                    response.body.length.should.be.eq(50);
+                });
+        });
+    });   
     
     describe('/PUT /api/movies/', () => {
         it('It should update the value of a movie', (done)=>{
