@@ -10,7 +10,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/movies', async (req, res) => {
-  const movies = await Movie.find({}).limit(REQUEST_ITEMS_LIMIT);
+  const { query } = req;
+  const limit = (query.limit) ? parseInt(query.limit, 10) : REQUEST_ITEMS_LIMIT;
+  const offset = (query.offset) ? parseInt(query.offset, 10) : 0;
+  const movies = await Movie.find({}).limit(limit).skip(offset);
   res.send(movies);
 });
 
