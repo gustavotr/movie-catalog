@@ -1,15 +1,14 @@
 const express = require('express');
-const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
-const { populate } = require('./model/Movie');
 const mongoose = require('mongoose');
+const { populate } = require('./model/Movie');
 
 // Connect to the database
-const dbURL = "mongodb://database/movie-catalog";
+const dbURL = 'mongodb://database/movie-catalog';
 mongoose.connect(dbURL, { useNewUrlParser: true })
-    .then(() => console.info(`Successfully connected to MongoDB database on "${dbURL}"`))
-    .catch((error) => console.error(`Cannot connect to MongoDB: ${error}`));
+  .then(() => console.info(`Successfully connected to MongoDB database on "${dbURL}"`))
+  .catch(error => console.error(`Cannot connect to MongoDB: ${error}`));
 
 // Populate the database if empty
 populate();
@@ -19,7 +18,7 @@ const api = require('./routes/api');
 
 const app = express();
 
-// Parsers for POST data 
+// Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
