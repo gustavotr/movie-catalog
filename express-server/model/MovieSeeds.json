@@ -9,22 +9,31 @@
             "poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg"
         },
         {
-            "title": "Guardians of the Galaxy Vol. 2",
-            "genre": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-            "releaseDate": "05 May 2017",
-            "mainActors": ["Chris Pratt", "Zoe Saldana", "Dave Bautista", "Vin Diesel"],
-            "plot": "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.",
-            "trailer": "https://www.youtube.com/watch?v=4-i8nTNSQFI",
-            "poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg"
+            "title": "The Matrix",
+            "genre": ["Action", "Sci-Fi"],
+            "releaseDate": "31 Mar 1999",
+            "mainActors": ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss", "Hugo Weaving"],
+            "plot": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+            "trailer": "https://www.youtube.com/watch?v=2KnZac176Hs",
+            "poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"
         },
         {
-            "title": "Guardians of the Galaxy Vol. 2",
-            "genre": ["Action", "Adventure", "Comedy", "Sci-Fi"],
-            "releaseDate": "05 May 2017",
-            "mainActors": ["Chris Pratt", "Zoe Saldana", "Dave Bautista", "Vin Diesel"],
-            "plot": "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.",
-            "trailer": "https://www.youtube.com/watch?v=4-i8nTNSQFI",
-            "poster": "https://m.media-amazon.com/images/M/MV5BMTg2MzI1MTg3OF5BMl5BanBnXkFtZTgwNTU3NDA2MTI@._V1_SX300.jpg"
+            "title": "Inception",
+            "genre": ["Action", "Adventure", "Sci-Fi", "Thriller"],
+            "releaseDate": "16 Jul 2010",
+            "mainActors": ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page", "Tom Hardy"],
+            "plot": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+            "trailer": "https://www.youtube.com/watch?v=8hP9D6kZseM",
+            "poster": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"
+        },
+        {
+            "title": "Van Helsing",
+            "genre": ["Action", "Adventure", "Fantasy"],
+            "releaseDate": "16 Jul 2010",
+            "mainActors": ["Hugh Jackman", "Kate Beckinsale", "Richard Roxburgh", "David Wenham"],
+            "plot": "The notorious monster hunter is sent to Transylvania to stop Count Dracula who is using Dr. Frankenstein's research and a werewolf for some sinister purpose.",
+            "trailer": "https://www.youtube.com/watch?v=3fdRKme00uI",
+            "poster": "https://m.media-amazon.com/images/M/MV5BODRmY2NhNDItOWViNi00OTIyLTk3YjYtYzY0YTFlMDg1YzQ0L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
         }
     ]
 }
