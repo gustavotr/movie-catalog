@@ -3,3 +3,13 @@
     bottom: 5vw;
     right: 5vw;
 }
+
+.card-img-top{
+    min-height: 320px;
+}
+
+.card-title{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;    
+}

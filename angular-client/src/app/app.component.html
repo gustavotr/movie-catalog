@@ -32,7 +32,7 @@
         <img src="../assets/movie-22.png" class="card-img-top" alt="..."  *ngIf="!movie.poster">
         <img src="{{movie.poster}}" class="card-img-top" alt="..."  *ngIf="movie.poster">
         <div class="card-body">
-          <h5 class="card-title">{{movie.title}}</h5>
+            <h5 class="card-title">{{movie.title}}</h5>
           <a href="#" class="btn btn-warning"  data-toggle="modal" data-target="#detailModal">See details</a>
         </div>
       </div>
@@ -89,7 +89,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Add Movie</button>
       </div>
     </div>
   </div>
