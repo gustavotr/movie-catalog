@@ -1,5 +1,5 @@
 #add-movie-button{
-    position: absolute;
+    position: fixed;
     bottom: 5vw;
     right: 5vw;
 }

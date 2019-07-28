@@ -23,7 +23,9 @@ describe('AppComponent', () => {
   });
 
   it(`should have an 'addMovie' function`, () => {
-
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.addMovie()).toBeTruthy();
   });
 
   it(`should render an 'Add Movie' button`, () =>{
