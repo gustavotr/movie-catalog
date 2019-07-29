@@ -14,6 +14,21 @@ export class AppComponent implements OnInit {
   private apiURL = 'http://localhost:3000/api';
   @ViewChild('autocompleteDiv') autocompleteDiv: ElementRef;
 
+  loggedIn: boolean = false;
+
+  usersList = {
+    admin: 'admin',
+    gustavo: 'ovatsug',
+    trudax: 'tech'
+  };
+
+  loginMessage = '';
+
+  loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  });
+
   movieForm = new FormGroup({
     title: new FormControl(''),
     genre: new FormControl(''),
@@ -47,6 +62,19 @@ export class AppComponent implements OnInit {
         this.movieList = response.data;
         console.log(this.movieList);
       });
+  }
+
+  performLogIn() {
+    if (this.usersList[this.loginForm.value.username] === this.loginForm.value.password) {
+      this.loggedIn = true;
+      this.loginMessage = 'Loged In';
+    } else {
+      this.loginMessage = 'Username or Password is incorrect!';
+    }
+  }
+
+  performLogOut() {
+    this.loggedIn = false;
   }
 
   setDetailedMovie(movieIndex) {
