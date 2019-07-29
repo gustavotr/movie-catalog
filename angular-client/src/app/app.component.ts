@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   });
 
   movieDetailsForm = new FormGroup({
+    _id: new FormControl(''),
     title: new FormControl(''),
     genre: new FormControl(''),
     releaseDate: new FormControl(''),
@@ -51,10 +52,11 @@ export class AppComponent implements OnInit {
   setDetailedMovie(movieIndex) {
     const m = this.movieList[movieIndex];
     this.movieDetailsForm.setValue({
+      _id: m._id,
       title: m.title,
-      genre: m.genre.join(','),
+      genre: m.genre.join(', '),
       releaseDate: m.releaseDate.slice(0, 10),
-      mainActors: m.mainActors.join(','),
+      mainActors: m.mainActors.join(', '),
       plot: m.plot,
       poster: m.poster,
       trailer: m.trailer
@@ -66,6 +68,18 @@ export class AppComponent implements OnInit {
       .then( res => {
         if (res.status === 201) {
          this.getMovies();
+        }
+      });
+  }
+
+  saveMovie() {
+    let movie = this.movieDetailsForm.value;
+    movie.genre = movie.genre.split(',');
+    movie.mainActors = movie.mainActors.split(',');
+    return axios.put(this.apiURL + '/movies', movie)
+      .then( res => {
+        if (res.status === 200){
+          this.getMovies();
         }
       });
   }

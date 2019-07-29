@@ -45,7 +45,7 @@
 
 </div>
 
-<!-- new Movie Modal -->
+<!-- New Movie Modal -->
 <div class="modal fade" id="newMovieModal" tabindex="-1" role="dialog" aria-labelledby="newMovieModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -126,9 +126,60 @@
         
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#editMovieModal">Edit</button>
         <a href="{{movieDetailsForm.value.trailer}}" target="_blank" class="btn btn-danger">Trailer</a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Edit Movie Modal -->
+<div class="modal fade" id="editMovieModal" tabindex="-1" role="dialog" aria-labelledby="editMovieModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editMovieModalTitle">Edit Movie</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="movieDetailsForm">
+            <div class="form-group dropdown">
+              <label for="movie-title" class="col-form-label">Title:</label>
+              <input type="text" class="form-control" id="movie-title" formControlName="title">
+            </div>
+            <div class="form-group">
+              <label for="movie-genre" class="col-form-label">Genre:</label>
+              <input type="text" class="form-control" id="movie-genre" placeholder="Action, Adventure, Sci-Fi" formControlName="genre"/>
+            </div>
+            <div class="form-group">
+              <label for="movie-release-date" class="col-form-label">Release date:</label>
+              <input type="date" class="form-control" id="movie-release-date" formControlName="releaseDate" />
+            </div>
+            <div class="form-group">
+              <label for="movie-main-actors" class="col-form-label">Main actors:</label>
+              <input type="text" class="form-control" id="movie-main-actors" placeholder="Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page" formControlName="mainActors"/>
+            </div>
+            <div class="form-group">
+              <label for="movie-plot" class="col-form-label">Plot:</label>
+              <textarea class="form-control" id="movie-plot" formControlName="plot"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="movie-poster" class="col-form-label">Poster Url:</label>
+              <input type="text" class="form-control" id="movie-poster" formControlName="poster"/>
+            </div>
+            <div class="form-group">
+              <label for="movie-trailer" class="col-form-label">Trailer Url:</label>
+              <input type="text" class="form-control" id="movie-trailer" formControlName="trailer" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveMovie()">Save Movie</button>
+        </div>
+      </div>
+    </div>
+  </div>
