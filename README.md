@@ -27,10 +27,10 @@ After deploying run the following comands
 
 Backend
 ```
-docker-compose run express run npm test
+docker-compose run express npm run test
 ```
 
 Frontend
 ```
-docker-compose run angular run npm test
+npm run test
 ```
