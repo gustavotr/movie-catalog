@@ -24,6 +24,16 @@ export class AppComponent implements OnInit {
     trailer: new FormControl('')
   });
 
+  movieDetailsForm = new FormGroup({
+    title: new FormControl(''),
+    genre: new FormControl(''),
+    releaseDate: new FormControl(''),
+    mainActors: new FormControl(''),
+    plot: new FormControl(''),
+    poster: new FormControl(''),
+    trailer: new FormControl('')
+  });
+
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
@@ -34,7 +44,21 @@ export class AppComponent implements OnInit {
     axios.get(this.apiURL + '/movies')
       .then((response) => {
         this.movieList = response.data;
+        console.log(this.movieList);
       });
+  }
+
+  setDetailedMovie(movieIndex) {
+    const m = this.movieList[movieIndex];
+    this.movieDetailsForm.setValue({
+      title: m.title,
+      genre: m.genre.join(','),
+      releaseDate: m.releaseDate.slice(0, 10),
+      mainActors: m.mainActors.join(','),
+      plot: m.plot,
+      poster: m.poster,
+      trailer: m.trailer
+    });
   }
 
   addMovie() {
@@ -63,7 +87,7 @@ export class AppComponent implements OnInit {
               this.renderer.listen(a, 'click', (evt) => { this.setDetailedMovie(evt); });
               this.renderer.appendChild(this.autocompleteDiv.nativeElement, a);
             });
-            this.setDetailedMovie(movies[0]);
+            this.setFormMovie(movies[0]);
             this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'block');
           } else {
             this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'none');
@@ -76,7 +100,7 @@ export class AppComponent implements OnInit {
     this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'none');
   }
 
-  setDetailedMovie(movie){
+  setFormMovie(movie){
     axios.get(`http://www.omdbapi.com/?apikey=72aabae2&i=${movie.imdbID}`)
       .then( res => {
         const m = res.data;

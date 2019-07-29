@@ -33,7 +33,7 @@
         <img src="{{movie.poster}}" class="card-img-top" alt="..."  *ngIf="movie.poster">
         <div class="card-body">
             <h5 class="card-title">{{movie.title}}</h5>
-          <a href="#" class="btn btn-warning"  data-toggle="modal" data-target="#detailModal">See details</a>
+          <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#detailModal" (click)="setDetailedMovie(movieList.indexOf(movie))">See details</a>
         </div>
       </div>
     </div>
@@ -99,20 +99,35 @@
 
 <!-- Details -->
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailModalLongTitle">{{movieForm.value.title}}</h5>
+        <h5 class="modal-title" id="detailModalLongTitle">{{movieDetailsForm.value.title}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="row">
+          <div class="col-md-5">
+              <img src="{{movieDetailsForm.value.poster}}">
+          </div>
+          <div class="col-md-7">
+            <div class="w-100"><b>Genre:</b></div>
+            <div class="w-100">{{movieDetailsForm.value.genre}}</div>
+            <div class="w-100"><b>Release date:</b></div>
+            <div class="w-100">{{movieDetailsForm.value.releaseDate}}</div>
+            <div class="w-100"><b>Actors:</b></div>
+            <div class="w-100">{{movieDetailsForm.value.mainActors}}</div>
+            <div class="w-100"><b>Plot:</b></div>
+            <div class="w-100">{{movieDetailsForm.value.plot}}</div>
+          </div>
+        </div>
+        
       </div>
       <div class="modal-footer">
+        <a href="{{movieDetailsForm.value.trailer}}" target="_blank" class="btn btn-danger">Trailer</a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
