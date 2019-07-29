@@ -6,7 +6,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <!-- <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -14,7 +14,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
+      </li> -->
     </ul>
     <form class="form-inline mt-2 mt-md-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -56,40 +56,42 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="form-group">
+        <form [formGroup]="movieForm">
+          <div class="form-group dropdown">
             <label for="movie-title" class="col-form-label">Title:</label>
-            <input type="text" class="form-control" id="movie-title">
+            <input type="text" class="form-control" id="movie-title" (keyup)="searchOMDb($event)" (focusout)="hideAutocomplete()" formControlName="title">
+            <div class="dropdown-menu" aria-labelledby="movie-title" #autocompleteDiv>
+            </div>
           </div>
           <div class="form-group">
             <label for="movie-genre" class="col-form-label">Genre:</label>
-            <input type="text" class="form-control" id="movie-genre" placeholder="Action, Adventure, Sci-Fi"/>
+            <input type="text" class="form-control" id="movie-genre" placeholder="Action, Adventure, Sci-Fi" formControlName="genre"/>
           </div>
           <div class="form-group">
             <label for="movie-release-date" class="col-form-label">Release date:</label>
-            <input type="date" class="form-control" id="movie-release-date"/>
+            <input type="date" class="form-control" id="movie-release-date" formControlName="releaseDate" />
           </div>
           <div class="form-group">
             <label for="movie-main-actors" class="col-form-label">Main actors:</label>
-            <input type="text" class="form-control" id="movie-main-actors" placeholder="Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page"/>
+            <input type="text" class="form-control" id="movie-main-actors" placeholder="Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page" formControlName="mainActors"/>
           </div>
           <div class="form-group">
             <label for="movie-plot" class="col-form-label">Plot:</label>
-            <textarea class="form-control" id="movie-plot"></textarea>
+            <textarea class="form-control" id="movie-plot" formControlName="plot"></textarea>
           </div>
           <div class="form-group">
             <label for="movie-poster" class="col-form-label">Poster Url:</label>
-            <input type="text" class="form-control" id="movie-poster"/>
+            <input type="text" class="form-control" id="movie-poster" formControlName="poster"/>
           </div>
           <div class="form-group">
             <label for="movie-trailer" class="col-form-label">Trailer Url:</label>
-            <input type="text" class="form-control" id="movie-trailer"/>
+            <input type="text" class="form-control" id="movie-trailer" formControlName="trailer" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Add Movie</button>
+        <button type="button" class="btn btn-primary" (click)="addMovie()">Add Movie</button>
       </div>
     </div>
   </div>
@@ -100,7 +102,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailModalLongTitle">{{detailedMovie.title}}</h5>
+        <h5 class="modal-title" id="detailModalLongTitle">{{movieForm.value.title}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -37,7 +37,7 @@ const validate = (movie) => {
     releaseDate: Joi.string(),
     mainActors: Joi.string(),
     plot: Joi.string(),
-    trailer: Joi.string(),
+    trailer: Joi.string().min(0),
     poster: Joi.string(),
   };
 

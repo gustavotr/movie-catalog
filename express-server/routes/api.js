@@ -6,7 +6,7 @@ const REQUEST_ITEMS_LIMIT = 50;
 
 router.all('/movies', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
