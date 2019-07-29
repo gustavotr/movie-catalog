@@ -1,5 +1,5 @@
 import { Renderer2, ViewChild, ElementRef, Component, OnInit } from '@angular/core';
-import axios from 'axios';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'Movie Catalog';
   movieList = [];
   private apiURL = 'http://localhost:3000/api';
-  @ViewChild('autocompleteDiv') autocompleteDiv: ElementRef;
+  @ViewChild('autocompleteDiv', {static: false}) autocompleteDiv: ElementRef;
 
   loggedIn: boolean = false;
 
@@ -50,17 +50,20 @@ export class AppComponent implements OnInit {
     trailer: new FormControl('')
   });
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(
+    private renderer: Renderer2, 
+    private el: ElementRef,
+    private http: HttpClient
+    ) {}
 
   ngOnInit(): void {
     this.getMovies();
   }
 
   getMovies(){
-    axios.get(this.apiURL + '/movies')
-      .then((response) => {
-        this.movieList = response.data;
-        console.log(this.movieList);
+    this.http.get(this.apiURL + '/movies')
+      .subscribe((response: []) => {        
+        this.movieList = response;        
       });
   }
 
@@ -92,11 +95,9 @@ export class AppComponent implements OnInit {
   }
 
   addMovie() {
-    return axios.post(this.apiURL + '/movies', this.movieForm.value)
-      .then( res => {
-        if (res.status === 201) {
-         this.getMovies();
-        }
+    return this.http.post(this.apiURL + '/movies', this.movieForm.value)
+      .subscribe( response => {             
+         this.getMovies();                
       });
   }
 
@@ -104,23 +105,22 @@ export class AppComponent implements OnInit {
     let movie = this.movieDetailsForm.value;
     movie.genre = movie.genre.split(',');
     movie.mainActors = movie.mainActors.split(',');
-    return axios.put(this.apiURL + '/movies', movie)
-      .then( res => {
-        if (res.status === 200){
-          this.getMovies();
-        }
+    return this.http.put(this.apiURL + '/movies', movie)      
+      .subscribe( res => {
+        this.getMovies();        
       });
   }
 
-  searchOMDb(event: Event) {
-    const title = event.target.value;
+  searchOMDb(event: Event) {    
+    const title = this.movieForm.value.title;
     if (title.length > 3){
-      axios.get(`http://www.omdbapi.com/?apikey=72aabae2&s=${title}&type=movie`)
-        .then(response => {
-          if (response.data.Response === 'True') {
-            const movies: [] = response.data.Search;
+      this.http.get<any>(`http://www.omdbapi.com/?apikey=72aabae2&s=${title}&type=movie`)        
+        .subscribe(data => {
+          if (data.Response === 'True') {            
+            const movies = data.Search;
             this.renderer.setProperty(this.autocompleteDiv.nativeElement, 'innerHTML', '');
             movies.forEach((movie: any) => {
+              console.log(movie)
               const a = this.renderer.createElement('a');
               this.renderer.setAttribute(a, 'href', '#');
               this.renderer.setAttribute(a, 'data-movie', JSON.stringify(movie));
@@ -143,9 +143,9 @@ export class AppComponent implements OnInit {
   }
 
   setFormMovie(movie){
-    axios.get(`http://www.omdbapi.com/?apikey=72aabae2&i=${movie.imdbID}`)
-      .then( res => {
-        const m = res.data;
+    this.http.get(`http://www.omdbapi.com/?apikey=72aabae2&i=${movie.imdbID}`)    
+      .subscribe( data => {
+        const m: any = data;
         this.movieForm.setValue({
           title: m.Title,
           genre: m.Genre,
