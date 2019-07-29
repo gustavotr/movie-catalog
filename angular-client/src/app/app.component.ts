@@ -1,6 +1,7 @@
 import { Renderer2, ViewChild, ElementRef, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
+import { apiURL, omdbKey } from './config.json';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Movie Catalog';
-  movieList = [];
-  private apiURL = 'http://localhost:3000/api';
+  title = 'Movie Catalog';    
   @ViewChild('autocompleteDiv', {static: false}) autocompleteDiv: ElementRef;
 
-  loggedIn: boolean = false;
+  loggedIn: boolean = false; 
 
   usersList = {
     admin: 'admin',
@@ -24,10 +23,7 @@ export class AppComponent implements OnInit {
 
   loginMessage = '';
 
-  loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
-  });
+  movieList = []; 
 
   movieForm = new FormGroup({
     title: new FormControl(''),
@@ -37,6 +33,11 @@ export class AppComponent implements OnInit {
     plot: new FormControl(''),
     poster: new FormControl(''),
     trailer: new FormControl('')
+  }); 
+
+  loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
   });
 
   movieDetailsForm = new FormGroup({
@@ -60,8 +61,9 @@ export class AppComponent implements OnInit {
     this.getMovies();
   }
 
-  getMovies(){
-    this.http.get(this.apiURL + '/movies')
+  getMovies(){   
+    console.log(apiURL) 
+    this.http.get(apiURL + '/movies')
       .subscribe((response: []) => {        
         this.movieList = response;        
       });
@@ -94,27 +96,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  addMovie() {
-    return this.http.post(this.apiURL + '/movies', this.movieForm.value)
-      .subscribe( response => {             
-         this.getMovies();                
-      });
-  }
-
-  saveMovie() {
-    let movie = this.movieDetailsForm.value;
-    movie.genre = movie.genre.split(',');
-    movie.mainActors = movie.mainActors.split(',');
-    return this.http.put(this.apiURL + '/movies', movie)      
-      .subscribe( res => {
-        this.getMovies();        
-      });
-  }
-
   searchOMDb(event: Event) {    
     const title = this.movieForm.value.title;
     if (title.length > 3){
-      this.http.get<any>(`http://www.omdbapi.com/?apikey=72aabae2&s=${title}&type=movie`)        
+      this.http.get<any>(`http://www.omdbapi.com/?apikey=${omdbKey}&s=${title}&type=movie`)        
         .subscribe(data => {
           if (data.Response === 'True') {            
             const movies = data.Search;
@@ -129,13 +114,30 @@ export class AppComponent implements OnInit {
               this.renderer.listen(a, 'click', (evt) => { this.setDetailedMovie(evt); });
               this.renderer.appendChild(this.autocompleteDiv.nativeElement, a);
             });
-            this.setFormMovie(movies[0]);
+            // this.setFormMovie(movies[0]);
             this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'block');
           } else {
             this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'none');
           }
         });
     }
+  }
+
+  addMovie() {
+    return this.http.post(apiURL + '/movies', this.movieForm.value)
+      .subscribe( response => {             
+         this.getMovies();                
+      });
+  }
+
+  saveMovie() {
+    let movie = this.movieDetailsForm.value;
+    movie.genre = movie.genre.split(',');
+    movie.mainActors = movie.mainActors.split(',');
+    return this.http.put(apiURL + '/movies', movie)      
+      .subscribe( res => {
+        this.getMovies();        
+      });
   }
 
   hideAutocomplete() {
