@@ -14,4 +14,23 @@ c. With more time this project can be refined and upgraded but I think it has a 
 
 ## Instalation
 
+Rename the config_example.json file to config.json and set your omdbKey
+
 ## Deployment
+
+```
+docker-compose up
+```
+
+## Testing
+After deploying run the following comands
+
+Backend
+```
+docker-compose run express run npm test
+```
+
+Frontend
+```
+docker-compose run angular run npm test
+```
