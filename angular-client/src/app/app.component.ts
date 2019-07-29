@@ -105,16 +105,14 @@ export class AppComponent implements OnInit {
             const movies = data.Search;
             this.renderer.setProperty(this.autocompleteDiv.nativeElement, 'innerHTML', '');
             movies.forEach((movie: any) => {
-              console.log(movie)
               const a = this.renderer.createElement('a');
               this.renderer.setAttribute(a, 'href', '#');
               this.renderer.setAttribute(a, 'data-movie', JSON.stringify(movie));
               this.renderer.addClass(a, 'dropdown-item');
               this.renderer.setProperty(a, 'innerHTML', movie.Title);
-              this.renderer.listen(a, 'click', (evt) => { this.setDetailedMovie(evt); });
+              this.renderer.listen(a, 'click', () => { this.setFormMovie(movie); });
               this.renderer.appendChild(this.autocompleteDiv.nativeElement, a);
             });
-            // this.setFormMovie(movies[0]);
             this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'block');
           } else {
             this.renderer.setStyle(this.autocompleteDiv.nativeElement, 'display', 'none');
