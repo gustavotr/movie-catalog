@@ -62,8 +62,7 @@ export class AppComponent implements OnInit {
   }
 
   getMovies(){   
-    console.log(apiURL) 
-    this.http.get(apiURL + '/movies')
+    return this.http.get(apiURL + '/movies')
       .subscribe((response: []) => {        
         this.movieList = response;        
       });

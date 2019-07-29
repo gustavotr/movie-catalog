@@ -1,12 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent       
       ],
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule
+      ]
     }).compileComponents();
   }));
 
@@ -28,23 +35,18 @@ describe('AppComponent', () => {
     expect(app.addMovie()).toBeTruthy();
   });
 
-  it(`should render an 'Add Movie' button`, () =>{
+  it(`should not render an 'Add Movie' button if loggedOut`, () =>{
     const fixture = TestBed.createComponent(AppComponent);    
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('#add-movie-button').textContent).toContain('Add Movie');
+    const app = fixture.debugElement.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;    
+    expect(compiled.querySelector('#add-movie-button')).toBe(null);
   });
 
   it(`should have and a list of movies`, () =>{
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.movieList).toBeDefined();
-  });
-
-  it(`should have at least 3 movies to begin with`, () =>{
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.movieList.lenght).toBeGreaterThan(3);
   });
 
 });
